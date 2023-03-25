@@ -2,7 +2,8 @@ import json
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-if __name__ == "__main__":
+
+def on_reload():
     with open('media/books.json', 'r', encoding='utf-8') as f:
         books = json.load(f)
 
@@ -18,5 +19,6 @@ if __name__ == "__main__":
     with open('index.html', 'w', encoding="utf8") as file:
         file.write(rendered_page)
 
-    server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
-    server.serve_forever()
+
+if __name__ == "__main__":
+    on_reload()
