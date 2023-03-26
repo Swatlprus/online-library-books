@@ -1,4 +1,6 @@
 venv/
+index.html
+pages/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
