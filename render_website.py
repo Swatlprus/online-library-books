@@ -23,9 +23,8 @@ def on_reload():
         if number == 1:
             with open(f'pages/index.html', 'w', encoding="utf8") as file:
                 file.write(rendered_page)
-        else:          
-            with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
-                file.write(rendered_page)
+        with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
+            file.write(rendered_page)
 
 
 if __name__ == "__main__":
