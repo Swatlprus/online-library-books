@@ -19,10 +19,13 @@ def on_reload():
 
     count_pages = math.ceil(len(books) / 20)
     for number, book_page in enumerate(list(chunked(books, 20)), start=1):
-                                       
         rendered_page = template.render({'books': list(chunked(book_page, 2)), 'count_pages': count_pages, 'current_page': number})
-        with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
-            file.write(rendered_page)
+        if number == 1:
+            with open(f'pages/index.html', 'w', encoding="utf8") as file:
+                file.write(rendered_page)
+        else:          
+            with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
+                file.write(rendered_page)
 
 
 if __name__ == "__main__":
