@@ -12,14 +12,45 @@
   </head>
   <body>
     <div class="container">
-     <div class="row row-cols-2">
-      {% for chunked_book in books %}
+      <nav aria-label="Page Navigation">
+        <ul class="pagination">
+          {% if current_page == 1 %}
+           <li class="page-item disabled">
+             <a class="page-link" href="index{{ current_page-1 }}.html" tabindex="-1">Назад</a>
+           </li>
+          {% else %}
+           <li class="page-item">
+             <a class="page-link" href="index{{ current_page-1 }}.html" tabindex="-1">Назад</a>
+           </li>
+          {% endif %}
+          {% for number_page in range(1, count_pages+1) %}
+           {% if number_page != current_page %}
+           <li class="page-item"><a class="page-link" href="/pages/index{{number_page}}.html">{{ number_page }}</a></li>
+           {% else %}
+           <li class="page-item active" aria-current="page">
+            <a class="page-link" href="/pages/index{{number_page}}.html">{{ number_page }}<span class="sr-only">(current)</span></a>
+          </li>
+           {% endif %}
+          {% endfor %}
+          {% if current_page == count_pages %}
+           <li class="page-item disabled">
+             <a class="page-link" href="index{{ current_page+1 }}.html" aria-disabled="true">Вперед</a>
+           </li>
+          {% else %}
+           <li class="page-item">
+             <a class="page-link" href="index{{ current_page+1 }}.html">Вперед</a>
+           </li>
+          {% endif %}
+        </ul>
+      </nav>
+    <div class="row row-cols-2">
+     {% for chunked_book in books %}
        {% for book in chunked_book %}
         <div class="col">
          <div class="card mb-3" style="max-width: 540px;">
           <div class="row no-gutters">
            <div class="col-md-4">
-            <img src="{{ book.img_src }}" class="card-img" alt="{{ book.title }}">
+            <img src="./.{{ book.img_src }}" class="card-img" alt="{{ book.title }}">
            </div>
            <div class="col-md-8">
              <div class="card-body">
