@@ -19,10 +19,15 @@ def on_reload(library_books, number_book_on_page, columns_on_page):
     os.makedirs('./pages', exist_ok=True)
 
     pages_count = math.ceil(len(books_description) / number_book_on_page)
-    for number, book_page in enumerate(list(chunked(books_description, number_book_on_page)), start=1):
-        rendered_page = template.render({'books': list(chunked(book_page, columns_on_page)), 'pages_count': pages_count, 'current_page': number})
+    chunked_books = list(chunked(books_description, number_book_on_page))
+
+    for number, book_page in enumerate(chunked_books, start=1):
+        chunked_books_page = list(chunked(book_page, columns_on_page))
+        rendered_page = template.render({'books': chunked_books_page,
+                                         'pages_count': pages_count,
+                                         'current_page': number})
         if number == 1:
-            index_page = f'pages/index.html'
+            index_page = 'pages/index.html'
         else:
             index_page = f'pages/index{number}.html'
 
