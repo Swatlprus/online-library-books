@@ -1,12 +1,13 @@
 import os
 import json
 import math
+from environs import Env
 from more_itertools import chunked
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
-def on_reload():
-    with open('media/books.json', 'r', encoding='utf-8') as f:
+def on_reload(library_books):
+    with open(library_books, 'r', encoding='utf-8') as f:
         books = json.load(f)
 
     env = Environment(
@@ -28,4 +29,7 @@ def on_reload():
 
 
 if __name__ == "__main__":
-    on_reload()
+    env = Env()
+    env.read_env()
+    library_books = env("LIBRARY_BOOK", default='media/books.json')
+    on_reload(library_books)
