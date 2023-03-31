@@ -14,6 +14,14 @@
 git clone https://github.com/Swatlprus/online_library.git
 ```
 
+# Запустить сайт локально
+
+```shell
+python3 server.py
+```
+
+Сайт будет доступ по адресу - http://127.0.0.1:5500/pages/index.html
+
 ## Цели проекта
 
 Учебный проект по парсингу онлайн-библиотеки от онлайн-курса Devman (dvmn.org) ([dvmn.org](https://dvmn.org/)).
