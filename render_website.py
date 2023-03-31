@@ -22,9 +22,11 @@ def on_reload(library_books, number_book_on_page, columns_on_page):
     for number, book_page in enumerate(list(chunked(books_description, number_book_on_page)), start=1):
         rendered_page = template.render({'books': list(chunked(book_page, columns_on_page)), 'pages_count': pages_count, 'current_page': number})
         if number == 1:
-            with open(f'pages/index.html', 'w', encoding="utf8") as file:
-                file.write(rendered_page)
-        with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
+            index_page = f'pages/index.html'
+        else:
+            index_page = f'pages/index{number}.html'
+
+        with open(index_page, 'w', encoding="utf8") as file:
             file.write(rendered_page)
 
 
