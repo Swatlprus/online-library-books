@@ -14,13 +14,30 @@
 git clone https://github.com/Swatlprus/online_library.git
 ```
 
+# Настройка переменных окружения
+
+Файл .env нужно создать в корне сайта. Он не является обязательным, так как значения по умолчанию прописаны в файле server.py
+
+Пример, как выглядит файл .env:
+```
+LIBRARY_BOOKS=media/books.json
+NUMBER_BOOKS_ON_PAGE=20
+COLUMNS_ON_PAGE=2
+```
+
+Значения переменных
+```
+LIBRARY_BOOKS - путь к файлу json с описаниями книг
+NUMBER_BOOKS_ON_PAGE - количество книг на одной страницу
+COLUMNS_ON_PAGE - количество колонок на одной странице
+```
 # Запустить сайт локально
+
+В терминале запускаем файл server.py. Сайт будет доступ по адресу - http://127.0.0.1:5500/pages/index.html
 
 ```shell
 python3 server.py
 ```
-
-Сайт будет доступ по адресу - http://127.0.0.1:5500/pages/index.html
 
 ## Цели проекта
 
