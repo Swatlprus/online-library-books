@@ -6,6 +6,11 @@ from more_itertools import chunked
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
+def render_page(rendered_page, number):
+    with open(f'pages/index{number}.html', 'w', encoding='utf8') as file:
+        file.write(rendered_page)
+
+
 def on_reload(library_books, number_book_on_page, columns_on_page):
     with open(library_books, 'r', encoding='utf-8') as file:
         book_descriptions = json.load(file)
@@ -29,12 +34,8 @@ def on_reload(library_books, number_book_on_page, columns_on_page):
                                          'pages_count': pages_count,
                                          'current_page': number})
         if number == 1:
-            index_page = 'pages/index.html'
-        else:
-            index_page = f'pages/index{number}.html'
-
-        with open(index_page, 'w', encoding='utf8') as file:
-            file.write(rendered_page)
+            render_page(rendered_page, number='')
+        render_page(rendered_page, number)
 
 
 if __name__ == '__main__':
