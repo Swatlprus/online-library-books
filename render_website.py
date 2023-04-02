@@ -19,11 +19,13 @@ def on_reload(library_books, number_book_on_page, columns_on_page):
     os.makedirs('./pages', exist_ok=True)
 
     pages_count = math.ceil(len(book_descriptions) / int(number_book_on_page))
-    chunked_books = list(chunked(book_descriptions, int(number_book_on_page)))
+    chunked_book_descriptions = list(chunked(book_descriptions,
+                                             int(number_book_on_page)))
 
-    for number, book_page in enumerate(chunked_books, start=1):
-        chunked_books_page = list(chunked(book_page, int(columns_on_page)))
-        rendered_page = template.render({'books': chunked_books_page,
+    for number, book_page in enumerate(chunked_book_descriptions, start=1):
+        books_description_on_page = list(chunked(book_page,
+                                                 int(columns_on_page)))
+        rendered_page = template.render({'books': books_description_on_page,
                                          'pages_count': pages_count,
                                          'current_page': number})
         if number == 1:
