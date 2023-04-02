@@ -8,7 +8,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 def on_reload(library_books, number_book_on_page, columns_on_page):
     with open(library_books, 'r', encoding='utf-8') as file:
-        books_description = json.load(file)
+        book_descriptions = json.load(file)
 
     env = Environment(
         loader=FileSystemLoader('.'),
@@ -18,8 +18,8 @@ def on_reload(library_books, number_book_on_page, columns_on_page):
     template = env.get_template('template.html')
     os.makedirs('./pages', exist_ok=True)
 
-    pages_count = math.ceil(len(books_description) / int(number_book_on_page))
-    chunked_books = list(chunked(books_description, int(number_book_on_page)))
+    pages_count = math.ceil(len(book_descriptions) / int(number_book_on_page))
+    chunked_books = list(chunked(book_descriptions, int(number_book_on_page)))
 
     for number, book_page in enumerate(chunked_books, start=1):
         chunked_books_page = list(chunked(book_page, int(columns_on_page)))
