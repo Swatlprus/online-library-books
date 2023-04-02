@@ -12,7 +12,9 @@ def start_server():
     number_book_on_page = env('NUMBER_BOOKS_ON_PAGE', 20)
     columns_on_page = env('COLUMNS_ON_PAGE', 2)
     on_reload(library_books, number_book_on_page, columns_on_page)
-    server.watch('template.html', on_reload)
+    server.watch('template.html', on_reload(library_books,
+                                            number_book_on_page,
+                                            columns_on_page))
     server.serve(root='.', default_filename='./pages/index.html')
 
 
