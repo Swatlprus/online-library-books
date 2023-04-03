@@ -28,9 +28,9 @@ def on_reload(library_books, number_book_on_page, columns_on_page):
                                              int(number_book_on_page)))
 
     for number, book_page in enumerate(chunked_book_descriptions, start=1):
-        books_description_on_page = list(chunked(book_page,
+        book_descriptions_on_page = list(chunked(book_page,
                                                  int(columns_on_page)))
-        rendered_page = template.render({'books': books_description_on_page,
+        rendered_page = template.render({'books': book_descriptions_on_page,
                                          'pages_count': pages_count,
                                          'current_page': number})
         if number == 1:
