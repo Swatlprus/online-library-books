@@ -2,6 +2,7 @@ import os
 import json
 import math
 from environs import Env
+from livereload import Server
 from more_itertools import chunked
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -32,16 +33,22 @@ def on_reload(library_books, number_book_on_page, columns_on_page):
                                                  int(columns_on_page)))
         rendered_page = template.render({'books': book_descriptions_on_page,
                                          'pages_count': pages_count,
-                                         'current_page': number})
+                                         'current_page': number,
+                                         'columns_on_page': columns_on_page})
         if number == 1:
             render_page(rendered_page, number='')
         render_page(rendered_page, number)
 
 
 if __name__ == '__main__':
+    server = Server()
     env = Env()
     env.read_env()
     library_books = env('LIBRARY_BOOKS', 'media/books.json')
     number_book_on_page = env('NUMBER_BOOKS_ON_PAGE', 20)
     columns_on_page = env('COLUMNS_ON_PAGE', 2)
     on_reload(library_books, number_book_on_page, columns_on_page)
+    server.watch('template.html', on_reload(library_books,
+                                            number_book_on_page,
+                                            columns_on_page))
+    server.serve(root='.', default_filename='./pages/index.html')

@@ -50,7 +50,7 @@
           {% endif %}
         </ul>
       </nav>
-    <div class="row row-cols-2">
+    <div class="row row-cols-{{ columns_on_page }}">
      {% for chunked_book in books %}
        {% for book in chunked_book %}
         <div class="col">
