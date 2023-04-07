@@ -7,6 +7,15 @@ from more_itertools import chunked
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
+def start_server():
+    env = Env()
+    env.read_env()
+    library_books = env('LIBRARY_BOOKS', 'media/books.json')
+    number_book_on_page = env('NUMBER_BOOKS_ON_PAGE', 20)
+    columns_on_page = env('COLUMNS_ON_PAGE', 2)
+    on_reload(library_books, number_book_on_page, columns_on_page)
+
+
 def render_page(rendered_page, number):
     with open(f'pages/index{number}.html', 'w', encoding='utf8') as file:
         file.write(rendered_page)
@@ -42,13 +51,6 @@ def on_reload(library_books, number_book_on_page, columns_on_page):
 
 if __name__ == '__main__':
     server = Server()
-    env = Env()
-    env.read_env()
-    library_books = env('LIBRARY_BOOKS', 'media/books.json')
-    number_book_on_page = env('NUMBER_BOOKS_ON_PAGE', 20)
-    columns_on_page = env('COLUMNS_ON_PAGE', 2)
-    on_reload(library_books, number_book_on_page, columns_on_page)
-    server.watch('template.html', on_reload(library_books,
-                                            number_book_on_page,
-                                            columns_on_page))
+    start_server()
+    server.watch('template.html', start_server())
     server.serve(root='.', default_filename='./pages/index.html')
