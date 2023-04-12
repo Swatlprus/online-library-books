@@ -8,12 +8,9 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
 def start_server():
-    env = Env()
-    env.read_env()
-    library_books = env('LIBRARY_BOOKS', 'media/books.json')
-    number_book_on_page = env('NUMBER_BOOKS_ON_PAGE', 20)
-    columns_on_page = env('COLUMNS_ON_PAGE', 2)
-    on_reload(library_books, number_book_on_page, columns_on_page)
+    server = Server()
+    server.watch('template.html', on_reload)
+    server.serve(root='.', default_filename='./pages/index.html')
 
 
 def render_page(rendered_page, number):
@@ -21,7 +18,13 @@ def render_page(rendered_page, number):
         file.write(rendered_page)
 
 
-def on_reload(library_books, number_book_on_page, columns_on_page):
+def on_reload():
+    env = Env()
+    env.read_env()
+    library_books = env('LIBRARY_BOOKS', 'media/books.json')
+    number_book_on_page = env('NUMBER_BOOKS_ON_PAGE', 20)
+    columns_on_page = env('COLUMNS_ON_PAGE', 2)
+
     with open(library_books, 'r', encoding='utf-8') as file:
         book_descriptions = json.load(file)
 
@@ -47,10 +50,8 @@ def on_reload(library_books, number_book_on_page, columns_on_page):
         if number == 1:
             render_page(rendered_page, number='')
         render_page(rendered_page, number)
+    start_server()
 
 
 if __name__ == '__main__':
-    server = Server()
-    start_server()
-    server.watch('template.html', start_server())
-    server.serve(root='.', default_filename='./pages/index.html')
+    on_reload()
