@@ -33,10 +33,10 @@ COLUMNS_ON_PAGE - количество колонок на одной стран
 ```
 ## Запустить сайт локально
 
-В терминале запускаем файл server.py. Сайт будет доступ по адресу - http://127.0.0.1:5500/pages/index.html
+В терминале запускаем файл render_website.py. Сайт будет доступ по адресу - http://127.0.0.1:5500/pages/index.html
 
 ```shell
-python3 server.py
+python3 render_website.py
 ```
 
 ## Запустить сайт оффлайн из браузера
