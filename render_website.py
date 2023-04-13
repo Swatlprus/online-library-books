@@ -7,12 +7,6 @@ from more_itertools import chunked
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
-def start_server():
-    server = Server()
-    server.watch('template.html', on_reload)
-    server.serve(root='.', default_filename='./pages/index.html')
-
-
 def render_page(rendered_page, number):
     with open(f'pages/index{number}.html', 'w', encoding='utf8') as file:
         file.write(rendered_page)
@@ -50,8 +44,10 @@ def on_reload():
         if number == 1:
             render_page(rendered_page, number='')
         render_page(rendered_page, number)
-    start_server()
 
 
 if __name__ == '__main__':
+    server = Server()
     on_reload()
+    server.watch('template.html', on_reload)
+    server.serve(root='.', default_filename='./pages/index.html')
