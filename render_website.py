@@ -37,7 +37,8 @@ def on_reload():
     for number, book_page in enumerate(chunked_book_descriptions, start=1):
         book_descriptions_on_page = list(chunked(book_page,
                                                  int(columns_on_page)))
-        rendered_page = template.render({'book_descriptions_on_page': book_descriptions_on_page,
+        rendered_page = template.render({'book_descriptions_on_page':
+                                         book_descriptions_on_page,
                                          'pages_count': pages_count,
                                          'current_page': number,
                                          'columns_on_page': columns_on_page})
